@@ -40,38 +40,24 @@ choices4_1 = [
     [6, 3, 7]
 ]
 
-"""
-currPage = choices1_1[0][0]
-hasVisited = false
-if currPage in endings
-    return currPage
-elif hasVisted == True
-    return -1
-elif currPage not in choices1_1[i][0]:
-    currPage+=1
-else:
-    hasVistited = True
-    
-"""
-
 def stories(endings, choices, choice):
-    currPage = choices1_1[0][0]
-    hasVisited = False
+    book = dict()
     for i in range(len(choices)):
-        print(currPage)
-        print(choices1_1[i])
+        current_page = choices[i][0]
+        next_page = choices[i][choice]
+        book[current_page] = next_page
 
-        if currPage in endings:
-            return currPage
-        elif hasVisited == True:
+    currPage = 1
+    hasVisited = set()
+    while(currPage not in endings):
+        if currPage in hasVisited:
             return -1
-        elif currPage != choices1_1[i][0]:
-            currPage+=1
-        elif currPage == choices1_1[i][0]:
-            currPage = choices1_1[i][choice]
+        hasVisited.add(currPage)
+        if currPage in book:
+            currPage = book[currPage]
         else:
-            hasVistited = True
-    print("Oops")
-    return -3
-    
-print(stories(endings1, choices1_1, 1))
+            currPage += 1
+    return currPage    
+
+
+print(stories(endings1,choices1_1,2))
